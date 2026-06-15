@@ -1,5 +1,6 @@
 "use client";
 
+import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -44,6 +45,10 @@ export function Nav() {
           );
         })}
       </ul>
+      <div className="mt-auto flex items-center gap-2 px-2 pt-4">
+        <UserButton />
+        <span className="text-xs text-neutral-500">Account</span>
+      </div>
     </nav>
   );
 }

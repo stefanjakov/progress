@@ -6,10 +6,11 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
-import { initTRPC } from "@trpc/server";
+import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
+import { ALLOWED_EMAIL, getCurrentUserEmail } from "~/server/auth";
 import { db } from "~/server/db";
 
 /**
@@ -97,10 +98,25 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
 });
 
 /**
- * Public (unauthenticated) procedure
+ * Middleware that locks every procedure to the single allowed account.
  *
- * This is the base piece you use to build new queries and mutations on your tRPC API. It does not
- * guarantee that a user querying is authorized, but you can still access user session data if they
- * are logged in.
+ * This is a single-user app, so there is no "public" data — any request from a signed-out
+ * user or a different Google account is rejected before it reaches a resolver.
  */
-export const publicProcedure = t.procedure.use(timingMiddleware);
+const enforceOwner = t.middleware(async ({ next }) => {
+  const email = await getCurrentUserEmail();
+  if (email !== ALLOWED_EMAIL) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+  return next({ ctx: { email } });
+});
+
+/**
+ * Owner-only procedure.
+ *
+ * Despite the name kept for compatibility with the scaffold, every procedure built from this
+ * is gated by {@link enforceOwner}: only the one allowed account can call it.
+ */
+export const publicProcedure = t.procedure
+  .use(timingMiddleware)
+  .use(enforceOwner);
