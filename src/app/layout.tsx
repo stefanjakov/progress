@@ -33,7 +33,7 @@ export default async function RootLayout({
           {allowed ? (
             <TRPCReactProvider>
               <ActivityPing />
-              <div className="flex min-h-screen">
+              <div className="flex min-h-screen flex-col md:flex-row">
                 <Nav />
                 <main className="min-w-0 flex-1">{children}</main>
               </div>

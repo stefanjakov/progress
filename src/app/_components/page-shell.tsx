@@ -12,10 +12,12 @@ export function PageShell({
   children: ReactNode;
 }) {
   return (
-    <div className="mx-auto max-w-6xl px-6 py-8">
-      <header className="mb-6 flex items-start justify-between gap-4">
+    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
+      <header className="mb-6 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
+          <h1 className="text-xl font-semibold tracking-tight sm:text-2xl">
+            {title}
+          </h1>
           {subtitle ? (
             <p className="mt-1 text-sm text-neutral-500">{subtitle}</p>
           ) : null}

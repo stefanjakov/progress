@@ -8,6 +8,8 @@
 /* Minimal styling for rendered markdown (no typography plugin needed). */
 .markdown {
   line-height: 1.6;
+  /* Break long words/URLs so they don't force horizontal scroll on phones. */
+  overflow-wrap: anywhere;
 }
 .markdown > :first-child {
   margin-top: 0;
@@ -76,6 +78,10 @@
 .markdown table {
   border-collapse: collapse;
   margin: 0.5rem 0;
+  /* Let wide tables scroll within the note instead of widening the page. */
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
 }
 .markdown th,
 .markdown td {

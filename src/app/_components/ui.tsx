@@ -4,9 +4,16 @@ import {
   type ReactNode,
 } from "react";
 
-/** Shared input/select/textarea styling. */
+/** Shared input/select/textarea styling (full width). */
 export const inputClass =
   "w-full rounded-md border border-neutral-300 bg-white px-3 py-1.5 text-sm text-neutral-900 outline-none transition-colors focus:border-neutral-500 focus:ring-1 focus:ring-neutral-400";
+
+/**
+ * Compact, content-width select for inline use next to a title. Deliberately
+ * omits `w-full` so it doesn't collapse a sibling `min-w-0` text column.
+ */
+export const selectInlineClass =
+  "shrink-0 rounded-md border border-neutral-300 bg-white px-2 py-1 text-xs text-neutral-900 outline-none transition-colors focus:border-neutral-500 focus:ring-1 focus:ring-neutral-400";
 
 export const labelClass =
   "mb-1 block text-xs font-medium uppercase tracking-wide text-neutral-500";

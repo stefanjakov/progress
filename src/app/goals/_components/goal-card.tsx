@@ -9,6 +9,7 @@ import {
   Card,
   inputClass,
   labelClass,
+  selectInlineClass,
 } from "~/app/_components/ui";
 import { dateToDayKey, formatDay } from "~/lib/date";
 import {
@@ -62,7 +63,7 @@ export function GoalCard({ goal }: { goal: Goal }) {
           )}
         </div>
         <select
-          className={`${inputClass} w-auto shrink-0 py-1 text-xs`}
+          className={selectInlineClass}
           value={goal.status}
           onChange={(e) =>
             setStatus.mutate({
